@@ -1,0 +1,22 @@
+.hide-large-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.pointer-click {
+    cursor: pointer;
+}
+
+.hideText {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.active {
+    background: black;
+    text-decoration: underline;
+    font-weight: 700;
+    z-index: auto;
+}

@@ -1,0 +1,123 @@
+<div class="bg-dark mx-auto">
+    <div class="h-100vh container-home mx-auto background {{background$ == 'default' ? 'bg-dark' : background$}}">
+        <app-navbar></app-navbar>
+        <div class="home text-white d-flex justify-content-center"
+            [ngClass]="{'align-items-center': listToDo.length == 0 && listToDoCompleted.length == 0}"
+            *ngIf=" nameListTask$ != ''  ">
+            <div class="w-100 overflow-auto  h-92">
+                <div class="pt-4 d-flex justify-content-between align-items-center">
+                    <form (ngSubmit)="updateNameTask()" class="w-70">
+                        <input type="text" id="nameTaskList" disabled value="{{nameListTask$}}"
+                            (blur)="updateNameTask()"
+                            class="form-control pointer-click inputList fs-3 ps-0 text-overflow-ellipsis">
+                    </form>
+                    <div class="w-100 text-end">
+                        <button type="button" class="btn btn-dark border-light" data-bs-toggle="modal"
+                            data-bs-target="#shareListToDo"><i class="fas fa-user-plus"></i></button>
+                        <button type="button" class="btn btn-dark ms-3 border-light " data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu rounded-0">
+                            <div class="card border-0 ">
+                                <div class="card-body p-0">
+                                    <ul class="list-group list-group-flush text-center">
+                                        <li class="list-group-item border-bottom pointer-click fas fa-edit"
+                                            (click)="activeInputNameTask()" *ngIf="idGuestList$ == 'false'"> Cambiar
+                                            nombre lista</li>
+                                        <li class="list-group-item border-bottom pointer-click fas fa-search"
+                                            (click)="showSearchInput()"> Buscar en lista</li>
+                                        <li class="list-group-item">
+                                            <p class="mb-0 fas fa-paint-roller">
+                                                Temas
+                                            </p>
+                                            <div class="">
+                                                <p class="bg-icon-forest icon-bg-style"
+                                                    (click)="updateBackground('bg-forest')"></p>
+                                                <p class="bg-icon-road icon-bg-style"
+                                                    (click)="updateBackground('bg-road')"></p>
+                                                <p class="bg-icon-forestSun icon-bg-style"
+                                                    (click)="updateBackground('bg-forestSun')"></p>
+                                                <p class="bg-icon-snow icon-bg-style"
+                                                    (click)="updateBackground('bg-snow')"></p>
+                                                <p class="bg-icon-beach icon-bg-style"
+                                                    (click)="updateBackground('bg-beach')"></p>
+                                                <p class="bg-icon-mountain icon-bg-style"
+                                                    (click)="updateBackground('bg-mountain')"></p>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item pointer-click fas fa-trash-alt text-danger"
+                                            (click)="removeList()" *ngIf="idGuestList$ == 'false'"> Eliminar lista</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+
+                    <form class="position-relative d-none" id="formSearch" (ngSubmit)="searchInList()">
+                        <i class="fas fa-search position-absolute text-dark search"></i>
+                        <input type="text" id="searchInList" name="searchInList"
+                            class="w-100 mt-3 mb-3 form-control ps-5 pe-4">
+                        <i class="fas fa-times position-absolute text-dark closeSearch pointer-click"
+                            (click)="closeSeachList()"></i>
+                    </form>
+
+                </div>
+
+                <div *ngIf="listToDo.length == 0 && listToDoCompleted.length == 0">
+                    <p>No tienes ninguna tarea</p>
+                </div>
+                <div *ngIf="(listToDo.length > 0 || listToDoCompleted.length > 0) && resultsSearch.length == 0">
+                    <app-list-tasks [listToDo]="listToDo"></app-list-tasks>
+                    <button type="button" class="btn btn-light mt-4" *ngIf="listToDoCompleted.length != 0"
+                        (click)="hideToDoCompleteList()">
+                        <i class="fas fa-caret-down" [ngClass]="{'rotate-90': showToDoCompletedList}"></i>
+                        Completados
+                        <span class="badge bg-dark rounded-pill">{{listToDoCompleted.length}}</span>
+                    </button>
+                    <app-list-tasks [ngClass]="{'d-none': !showToDoCompletedList}" [listToDo]="listToDoCompleted">
+                    </app-list-tasks>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-light mt-4" *ngIf="assignedTasks.length != 0"
+                        (click)="hideAssignedToDoList()">
+                        <i class="fas fa-caret-down" [ngClass]="{'rotate-90': showAssignedTasks}"></i>
+                        Tareas asignadas
+                        <span class="badge bg-dark rounded-pill">{{assignedTasks.length}}</span>
+                    </button>
+                    <app-list-tasks [ngClass]="{'d-none': !showAssignedTasks}" [listToDo]="assignedTasks">
+                    </app-list-tasks>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-light mt-4" *ngIf="myTasks.length != 0"
+                        (click)="hideMyTasksAssigned()">
+                        <i class="fas fa-caret-down" [ngClass]="{'rotate-90': hideMyTasks}"></i>
+                        Mis Tareas
+                        <span class="badge bg-dark rounded-pill">{{myTasks.length}}</span>
+                    </button>
+                    <app-list-tasks [ngClass]="{'d-none': !hideMyTasks}" [listToDo]="myTasks"></app-list-tasks>
+                </div>
+
+                <div *ngIf="resultsSearch.length > 0">
+                    <app-list-tasks [listToDo]="resultsSearch"></app-list-tasks>
+                </div>
+            </div>
+            <form action="" [formGroup]="addTaskForm" (ngSubmit)="addTask()" class="inputInBottom">
+                <i class="fas fa-plus iconNewList text-dark"></i>
+                <input type="text" name="newTask" formControlName="newTask" class="form-control ps-4"
+                    placeholder="Nueva tarea">
+            </form>
+        </div>
+        <div class="home text-white d-flex justify-content-center align-items-center h-90vh"
+            *ngIf=" nameListTask$ == ''  ">
+            Selecciona una lista para ver sus tareas
+        </div>
+    </div>
+
+
+</div>
+
+<app-share-list-to-do></app-share-list-to-do>

@@ -1,0 +1,67 @@
+<div class="bg-dark h-100vh">
+    <div  class="container text-white">
+        <div  class="pt-4 pb-4 border-bottom cursor-pointer">
+            <i class="fas fa-arrow-left  w-100" routerLink="/dashboard"> Volver</i>
+        </div>
+        <div *ngIf="!loading" class="row text-white mx-auto col-md-8 col-lg-6 col-sm-12 col-xs-10 mxw-1000">
+            <form [formGroup]="dataUserForm" (ngSubmit)="updateDataUser($event)">
+                <div class="pt-4 pb-4 border-bottom text-center position-relative">
+                    <label for="photoUrl" class="custom-file-upload" >
+                        <img src="{{photoProfile == undefined ? './assets/images/blank_profile.png' : photoProfile}}" id="test" alt="" style="background-size: cover;width: 100px;height: 100px;border-radius: 100%;">
+                    </label>
+                    <input type="file" id="photoUrl"  class="form-control d-none" formControlName="photoUrl"
+                        (change)="newPhoto($event)" value="'">
+                        
+                </div>
+                <div class="pt-4 pb-4 border-bottom">
+                    <label for="changeEmail" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="changeEmail" formControlName="email">
+                    <span class="text-danger"
+                        *ngIf="dataUserForm.get('email')?.hasError('required') && dataUserForm.get('email')?.touched">
+                        El campo debe de ser rellenado.
+                    </span>
+                    <span class="text-danger"
+                        *ngIf="dataUserForm.get('email')?.hasError('email') && dataUserForm.get('email')?.touched">
+                        El campo debe de ser un email valido.
+                    </span>
+                </div>
+                <div class="pt-4 pb-4 border-bottom">
+                    <label for="changeName" class="form-label">Nombre</label>
+                    <input type="text" id="changeName" class="form-control" formControlName="nameUser">
+                    <span class="text-danger"
+                        *ngIf="dataUserForm.get('nameUser')?.hasError('required') && dataUserForm.get('nameUser')?.touched">
+                        El campo debe de ser rellenado.
+                    </span>
+                </div>
+                <div class="pt-4 pb-4 border-bottom">
+                    <label for="password" class="form-label">Nueva contraseña</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                    <span class="text-danger"
+                        *ngIf="dataUserForm.get('password')?.hasError('required') && dataUserForm.get('password')?.touched">
+                        El campo debe de ser rellenado.
+                    </span>
+                    <span class="text-danger"
+                        *ngIf="dataUserForm.get('password')?.hasError('minlength') && dataUserForm.get('password')?.touched">
+                        El campo debe de ser al menos 6 caracteres
+                    </span>
+
+                </div>
+                <div class="pt-4 pb-4 border-bottom">
+                    <label for="password2" class="form-label">Repite tu contraseña</label>
+                    <input type="password" class="form-control" id="password2" formControlName="repeatPassword">
+                    <span class="text-danger"
+                        *ngIf="dataUserForm.hasError('samePassword') && dataUserForm.get('repeatPassword')?.touched">
+                        Ambas contraseñas deben ser iguales
+                    </span>
+                </div>
+                <div class="pt-5 d-flex justify-content-between pb-5">
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteAccount()">Borrar cuenta</button>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="loading" class=" d-flex justify-content-center align-items-center ">
+            <app-spinner color = 'white'></app-spinner>
+        </div>
+    </div>
+</div>

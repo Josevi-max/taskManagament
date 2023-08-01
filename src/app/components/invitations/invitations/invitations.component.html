@@ -1,0 +1,64 @@
+<div class="bg-dark h-100vh">
+    <div class="container text-white">
+        <div class="pt-4 pb-4 border-bottom cursor-pointer">
+            <i class="fas fa-arrow-left  w-100" routerLink="/dashboard"> Volver</i>
+        </div>
+        <div class="row">
+            <div class="row text-white mx-auto col-md-8 col-lg-6 col-sm-12 col-xs-10 mxw-1000" *ngIf="dataInvitations.length != 0">
+                <h2 class="text-center mt-4">Invitaciones recibidas</h2>
+                <table class="table table-light mt-4 table-striped table-hover align-items-center table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Lista</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" >Gestionar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of dataInvitations;" class="align-middle">
+                            <td class="mx-content"><img src="{{data.userMainPhoto == undefined ? './assets/images/blank_profile.png' : data.userMainPhoto}}" alt="" class="img-size rounded-circle"> {{data.userMainName}}</td>
+                            <td class="mx-content">{{data.nameList}}</td>
+                            <td class="mx-content">{{data.statusInvitation}}</td>
+                            <td class="mx-content">
+                                <i class="fas fa-check text-success me-4 cursor-pointer" [ngClass]="{'d-none': data.statusInvitation != 'Pending'}" (click)="acceptInvitation(data.id,data.listTaskId)"></i>
+                                <i class="fas fa-times text-danger cursor-pointer" [ngClass]="{'d-none': data.statusInvitation != 'Pending'}" (click)="rejectInvitation(data.id)"></i>
+                                <b class="text-start text-danger cursor-pointer" [ngClass]="{'d-none': data.statusInvitation == 'Pending'}" (click)="deleteInvitationUser(data.id)">Eliminar</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row text-white mx-auto col-md-8 col-lg-6 col-sm-12 col-xs-10 mxw-1000" *ngIf="manageInvitations.length != 0">
+                <h2 class="text-center mt-4">Mis invitaciones</h2>
+                <table class="table table-light mt-4 table-striped table-hover align-items-center table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Lista</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" >Gestionar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of manageInvitations;" class="align-middle">
+                            <td class="mx-content">{{data.emailGuest}}</td>
+                            <td class="mx-content">{{data.nameList}}</td>
+                            <td class="mx-content">{{data.statusInvitation}}</td>
+                            <td>
+                                <span class="text-danger cursor-pointer" [ngClass]="{'d-none': data.statusInvitation == 'Rejected'}" (click)="deleteInvitationUser(data.id)">Eliminar</span>
+                                <b [ngClass]="{'d-none': data.statusInvitation != 'Pending'}"></b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row text-white mx-auto col-md-8 col-lg-6 col-sm-12 col-xs-10 mxw-1000 h-80 d-flex align-items-center" *ngIf="dataInvitations.length == 0 && manageInvitations.length == 0">
+                <p class="text-center">
+                    No hay invitaciones
+                </p>
+            </div>
+        </div>
+        
+    </div>
+</div>

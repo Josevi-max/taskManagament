@@ -1,0 +1,41 @@
+.h-100vh {
+    height: 100vh;
+    overflow: auto;
+}
+
+.mxw-1000 {
+    max-width: 1000px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.spinner>div {
+    background-color: white !important;
+}
+
+
+
+.custom-file-upload {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: transparent;
+}
+
+.custom-file-upload:hover {
+    opacity: 0.5;
+}
+
+.custom-file-upload:hover::before{
+    font-family: "Font Awesome 5 Free";
+    content: "\f044";
+    color: white;
+    position: absolute;
+    left: 50.5%;
+    top: 45%;
+}

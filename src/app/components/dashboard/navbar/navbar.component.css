@@ -1,0 +1,104 @@
+.menuMobile {
+    display: none;
+}
+.fa-trash-alt {
+    cursor: pointer;
+}
+.pointer {
+    cursor: pointer;
+}
+.p-10 {
+    padding: 10px;
+}
+.iconNewList {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+.newListButton {
+    padding-left: 30px;
+}
+
+.offcanvas-header .btn.show, .offcanvas-header .btn {
+    border: none;
+    padding: 0;
+}
+.fa-search {
+    left: 20px;
+    top: 10px;
+}
+.inputList {
+    border: none;
+    background: transparent;
+    text-overflow: ellipsis;
+}
+#offcanvasDesktop {
+    position: relative;
+}
+.pointer-click {
+    cursor: pointer;
+}
+.limit-width-name{
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media(min-width:1801px) {
+    #offcanvasDesktop {
+        max-width: 30%;
+        height: 100vh;
+        background: #fff;
+        width: 100%;
+        position: absolute;
+        visibility: visible;
+        transform: none;
+    }
+}
+@media(min-width:1001px) and (max-width:1800px){
+    #offcanvasDesktop {
+        max-width: 30%;
+    }
+}
+@media(min-width:768px) and (max-width:1000px){
+    #offcanvasDesktop {
+        max-width: 35%;
+    }
+}
+
+@media(min-width:768px){
+    .offcanvas-backdrop {
+        display: none;
+    }
+    #offcanvasExample {
+        display: none;
+    }
+    #offcanvasDesktop {
+        height: 100vh;
+        background: #fff;
+        width: 100%;
+    }
+    .offcanvas-footer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+    .offcanvas-body, .offcanvas-header {
+        padding: 16px;
+    }
+    #offcanvasDesktop .btn-close  {
+        display: none;
+    }
+}
+
+@media(max-width:768px) {
+    #offcanvasDesktop {
+        display: none;
+    }
+    .menuMobile {
+        display: block;
+        position: relative;
+        top: 10px;
+        border: 1px solid;
+    }
+} 

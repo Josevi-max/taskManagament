@@ -1,0 +1,187 @@
+<button class="btn btn-dark menuMobile pointer-click" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+  aria-controls="offcanvasExample">
+  <i class="fas fa-bars"></i>
+</button>
+
+<div class="offcanvas  offcanvas-start hide" data-bs-backdrop="true" tabindex="-1" id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <div class="dropdown mt-3">
+      <button class="btn btn-white d-flex align-items-center dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+        <img src="{{dataUser.photoUrl == undefined ? './assets/images/blank_profile.png' : dataUser.photoUrl}}" alt="" style="width: 50px;height: 50px;" class="rounded-circle">
+        <h5 class="offcanvas-title col-10  limit-width-name ms-2" id="offcanvasExampleLabel">{{nameUser}}</h5>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" routerLink="/settings"><i class="fas fa-tools"> Ajustes</i></a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item  fas fa-user-friends" href="#" routerLink="/invitations"> Invitaciones</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li (click)="logOut()"><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"> Desconectar</i></a>
+        </li>
+      </ul>
+    </div>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form [formGroup]="searchForm" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 position-relative"
+      (ngSubmit)="searchInList()">
+      <i class="fas fa-search position-absolute"></i>
+      <input type="search" name="search" formControlName="search" class="form-control ps-5" placeholder="Search..."
+        aria-label="Search">
+    </form>
+    <hr>
+    <ul class="list-group list-group-numbered" *ngIf="searchListTask.length > 0">
+      <li class="list-group-item d-flex justify-content-between align-items-center mb-2 border-top"
+      *ngFor="let list of searchListTask;">
+
+      <div (click)="currentListTask(list.name, list.totalToDoTasks, list.id, list.background);setGuestList('false')" data-bs-dismiss="offcanvas">
+        <form (ngSubmit)="sendAndDisabled(list.id,list.name)" >
+          <input  type="text" value="{{list.name}}"
+          class="pointer-click form-control desktop-{{list.id}} inputList text-center" disabled>
+        </form>
+        
+      </div>
+      <span class="badge bg-dark rounded-pill">{{list.totalToDoTasks}}</span>
+      <span class="btn border-0 fas fa-ellipsis-v" data-bs-toggle="dropdown" aria-expanded="false">
+      </span>
+      <ul class="dropdown-menu">
+        <li><span class="dropdown-item pointer fas fa-edit" (click)="activeInput(list.id)"> Editar nombre</span>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><span class="dropdown-item pointer fas fa-trash-alt text-danger" (click)="removeList(list.id)"> Eliminar
+            lista</span></li>
+      </ul>
+    </li>
+    </ul>
+
+    <div *ngIf="invitationsGuest$.length > 0 && searchListTask.length == 0">
+      <hr>
+      <p class="text-center text-uppercase">Otras Listas</p>
+      <hr>
+    </div>
+
+    <ul class="list-group list-group-numbered" *ngIf="invitationsGuest$.length > 0 && searchListTask.length == 0">
+      <li class="list-group-item d-flex justify-content-between align-items-center mb-2 border-top bg-light"
+        *ngFor="let list of invitationsGuest$;">
+
+        <div (click)="currentListTask(list.nameList, list.totalToDoTasks, list.listTaskId, list.background);setGuestList(list.id);" data-bs-dismiss="offcanvas">
+          
+            <input  type="text" value="{{list.name}}"
+            class="pointer-click form-control desktop-{{list.name}} inputList text-center" disabled>
+          
+        </div>
+        <span class="badge bg-dark rounded-pill">{{list.totalToDoTasks}}</span>
+        
+      </li>
+    </ul>
+    <p *ngIf="searchListTask.length == 0 && invitationsGuest$.length == 0" class="text-center">
+      <i class="fas fa-ghost"></i> No tienes ninguna lista creada
+    </p>
+  </div>
+  <div class="offcanvas-footer p-10">
+    <hr>
+    <form action="" [formGroup]="addListForm" (ngSubmit)="addList()">
+      <i class="fas fa-plus iconNewList"></i>
+      <input type="text" name="newList" formControlName="newList" placeholder="Nueva lista"
+        class="form-control newListButton">
+    </form>
+
+  </div>
+
+</div>
+
+<div id="offcanvasDesktop">
+  <div class="offcanvas-header">
+    <div class="dropdown mt-3">
+      <button class="btn btn-white d-flex align-items-center dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+        <img src="{{dataUser.photoUrl == undefined ? './assets/images/blank_profile.png' : dataUser.photoUrl}}" alt="" style="width: 50px;height: 50px;" class="rounded-circle">
+        <h5 class="offcanvas-title col-10  limit-width-name ms-2" id="offcanvasExampleLabel"> {{nameUser}}</h5>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item  fas fa-tools" href="#" routerLink="/settings"> Ajustes</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class=" dropdown-item  fas fa-user-friends" href="#" routerLink="/invitations"> Invitaciones <i class="fas fa-circle text-primary" [ngClass]="{'d-none': !areInvitationsPending$}"></i></a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li (click)="logOut()"><a class="dropdown-item fas fa-sign-out-alt" href="#"> Desconectar </a>
+        </li>
+      </ul>
+    </div>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form [formGroup]="searchForm" class="col-12 col-lg-auto mb-3 mb-lg-0 position-relative"
+      (ngSubmit)="searchInList()">
+      <i class="fas fa-search position-absolute"></i>
+      <input type="search" name="search" formControlName="search" class="form-control ps-5 pe-4" placeholder="Search..."
+        aria-label="Search">
+    </form>
+    <hr>
+    <ul class="list-group list-group-numbered" *ngIf="searchListTask.length > 0">
+      <li class="list-group-item d-flex justify-content-between align-items-center mb-2 border-top"
+      *ngFor="let list of searchListTask;">
+
+      <div (click)="currentListTask(list.name, list.totalToDoTasks, list.id, list.background);setGuestList('false')">
+        <form (ngSubmit)="sendAndDisabled(list.id,list.name)" >
+          <input  type="text" value="{{list.name}}"
+          class="pointer-click form-control desktop-{{list.name}} inputList text-center" disabled>
+        </form>
+        
+      </div>
+      <span class="badge bg-dark rounded-pill">{{list.totalToDoTasks}}</span>
+      <span class="btn border-0 fas fa-ellipsis-v" data-bs-toggle="dropdown" aria-expanded="false">
+      </span>
+      <ul class="dropdown-menu">
+        <li><span class="dropdown-item pointer fas fa-edit" (click)="activeInput(list.name)"> Editar nombre</span>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><span class="dropdown-item pointer fas fa-trash-alt text-danger" (click)="removeList(list.id)"> Eliminar
+            lista</span></li>
+      </ul>
+    </li>
+    </ul>
+    <div *ngIf="invitationsGuest$.length > 0 && searchListTask.length > 0">
+      <hr>
+      <p class="text-center text-uppercase">Otras Listas</p>
+      <hr>
+    </div>
+
+    <ul class="list-group list-group-numbered" *ngIf="invitationsGuest$.length > 0 && searchListTask.length > 0">
+      <li class="list-group-item d-flex justify-content-between align-items-center mb-2 border-top bg-light"
+        *ngFor="let list of invitationsGuest$;">
+
+        <div (click)="currentListTask(list.nameList, list.totalToDoTasks, list.listTaskId, list.background);setGuestList(list.id);">
+          <input (blur)="sendAndDisabled(list.listTaskId,list.nameList)" type="text" value="{{list.nameList}}"
+            class="pointer-click form-control desktop-{{list.nameList}} inputList text-center" disabled>
+        </div>
+        <span class="badge bg-dark rounded-pill">{{list.totalToDoTasks}}</span>
+        <span class="btn border-0 fas fa-ellipsis-v" data-bs-toggle="dropdown" aria-expanded="false">
+        </span>
+      </li>
+    </ul>
+    <p *ngIf="searchListTask.length == 0" class="text-center">
+      <i class="fas fa-ghost"></i> No tienes ninguna lista
+    </p>
+  </div>
+  <div class="offcanvas-footer p-10">
+    <hr>
+    <form action="" [formGroup]="addListForm" (ngSubmit)="addList()">
+      <i class="fas fa-plus iconNewList"></i>
+      <input type="text" name="newList" formControlName="newList" placeholder="Nueva lista"
+        class="form-control newListButton">
+    </form>
+
+  </div>
+
+</div>

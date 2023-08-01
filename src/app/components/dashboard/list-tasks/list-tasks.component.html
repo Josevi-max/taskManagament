@@ -1,0 +1,26 @@
+<ul class="list-group pt-2 hideText">
+    <li class="list-group-item mb-2 border-top border-light ps-0 d-flex justify-content-between align-items-center"
+        [ngClass]="{'bg-dark text-white': !toDo.important, 'active': toDo.important}"
+        *ngFor="let toDo of listToDo">
+
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="button" (click)="taskChanged(toDo)" class="btn-check"
+                id="btncheck-{{toDo.name}}" autocomplete="off">
+            <label class="btn" for="btncheck-{{toDo.name}}"><i
+                    class="fas  text-white" [ngClass]="{'fa-check-circle':!toDo.state, 'fa-minus-circle': toDo.state}"></i></label>
+        </div>
+
+        <span class="pointer-click hide-large-text" data-bs-toggle="offcanvas"
+            [attr.data-bs-target]="'#offcanvasRight-'+toDo.id" [ngClass]="{'text-decoration-line-through' : toDo.state}">
+            {{toDo.name}}
+        </span>
+        <div class="d-flex align-items-center  fs-5">
+            <i class="me-2 fa-star pointer-click"
+                [ngClass]="{'far': !toDo.important, 'fas': toDo.important}"
+                (click)="importantChangeState(toDo.id, !toDo.important)"></i>
+            <br>
+        </div>
+
+        <app-list-to-do class="position-absolute" [toDo]="toDo"></app-list-to-do>
+    </li>
+</ul>

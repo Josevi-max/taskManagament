@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "taskmanagament": {
+      "hosting": {
+        "taskManagament": [
+          "taskmanagament"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "taskmanagament"
+  }
+}

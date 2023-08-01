@@ -1,0 +1,221 @@
+.h-100vh {
+    height: 100vh;
+}
+
+.h-90vh {
+    height: 90vh;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.h-92 {
+    height: 92vh;
+}
+
+.hideText {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.container-home {
+    max-width: 1800px;
+    position: relative;
+}
+
+.bg-mountain{
+    background-image: url("../../../../assets/images/mountain.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-beach{
+    background-image: url("../../../../assets/images/beach.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-forest {
+    background-image: url("../../../../assets/images/forest.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-forestSun {
+    background-image: url("../../../../assets/images/forestAndSun.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.bg-snow {
+    background-image: url("../../../../assets/images/snow.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-road {
+    background-image: url("../../../../assets/images/road.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-icon-forest {
+    background-image: url("../../../../assets/images/icon-forest.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-icon-beach {
+    background-image: url("../../../../assets/images/icon-beach.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-icon-forestSun {
+    background-image: url("../../../../assets/images/icon-forestSun.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-icon-mountain {
+    background-image: url("../../../../assets/images/icon-mountain.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-icon-road {
+    background-image: url("../../../../assets/images/icon-road.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg-icon-snow {
+    background-image: url("../../../../assets/images/icon-snow.jpg")!important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.icon-bg-style {
+    width: auto;
+    height: 40px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.iconNewList {
+    position: absolute;
+    left: 7px;
+    bottom: 10px;
+}
+
+.inputInBottom {
+    bottom: 11px;
+    right: 12px;
+    left: 0;
+    position: absolute;
+}
+
+.rotate-90{
+    transform: rotate(-90deg);
+}
+
+.overflow-auto::-webkit-scrollbar {
+    display: none;
+}
+
+.pointer-click {
+    cursor: pointer;
+}
+
+.active {
+    background: black;
+    text-decoration: underline;
+    font-weight: 700;
+    z-index: auto;
+}
+
+.bottom-15 {
+    bottom: 15px;
+}
+
+.p-16 {
+    padding: 16px;
+}
+
+.textAreaDiv {
+    height: 93%;
+}
+.textAreaHeight {
+    height: 93%;
+    background: transparent;
+    color: #fff;
+}
+
+.text-overflow-ellipsis {
+    text-overflow: ellipsis;
+}
+
+.inputList {
+    border: none;
+    background: transparent;
+    color: #fff;
+}
+
+.search {
+    left: 10px;
+    top: 10px;
+}
+
+.closeSearch {
+    top: 10px;
+    right: 10px;
+}
+
+.hide-large-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+@media(min-width:1001px){
+    .home {
+        max-width: 67%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        padding-right: 12px;
+    }
+}
+@media(min-width:768px) and (max-width:1000px){
+    .home {
+        max-width: 60%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        padding-right: 12px
+    }
+}
+
+@media(max-width: 768px) {
+    .container-home {
+        padding: 0 12px;
+    }
+}

@@ -1,0 +1,72 @@
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div *ngIf="loading" class=" d-flex justify-content-center align-items-center h-100">
+        <app-spinner></app-spinner>
+      </div>
+      <div class="row d-flex justify-content-center align-items-center h-100" *ngIf="!loading">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+  
+            <div class="text-center my-4">
+              <h1 class=" fw-bold mx-3 mb-0">Registrarse</h1>
+            </div>
+  
+            <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <label class="form-label" for="form3Example1c">Tu nombre</label>
+                  <input type="text" formControlName="userName" id="form3Example1c" class="form-control form-control-lg" />
+                  <span class="text-danger" *ngIf="registerForm.get('userName')?.hasError('required') && registerForm.get('userName')?.touched">
+                    El campo debe de ser rellenado.
+                  </span>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <label class="form-label" for="form3Example3c">Tu Email</label>
+                  <input type="email" formControlName="userEmail" id="form3Example3c" class="form-control form-control-lg" />
+                  <span class="text-danger" *ngIf="registerForm.get('userEmail')?.hasError('required') && registerForm.get('userEmail')?.touched">
+                    El campo debe de ser rellenado.
+                  </span>
+                  <span class="text-danger" *ngIf="registerForm.get('userEmail')?.hasError('email') && registerForm.get('userEmail')?.touched">
+                    El campo debe de ser un email válido.
+                  </span>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <label class="form-label" for="form3Example4c">Contraseña</label>
+                  <input type="password" formControlName="userPassword" id="form3Example4c" class="form-control form-control-lg" />
+                  <span class="text-danger" *ngIf="registerForm.get('userPassword')?.hasError('required') && registerForm.get('userPassword')?.touched">
+                    El campo debe de ser rellenado.
+                  </span>
+                  <span class="text-danger" *ngIf="registerForm.get('userPassword')?.hasError('minlength') && registerForm.get('userPassword')?.touched">
+                    El campo debe de tener minimo 6 caracteres
+                  </span>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <label class="form-label" for="form3Example4cd">Repite tu contraseña</label>
+                  <input type="password" formControlName="repeatPassword" id="form3Example4cd" class="form-control form-control-lg" />
+                  <span class="text-danger" *ngIf="registerForm.hasError('samePassword') && registerForm.get('repeatPassword')?.touched">
+                    Ambas contraseñas deben ser iguales
+                  </span>
+                </div>
+              </div>
+              <div class="text-center mx-4 mb-3 mb-lg-4">
+                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary btn-lg">Registrarse</button>
+              </div>
+  
+          </form>
+          <p class="text-end">¿Tienes ya una cuenta? ve al <a routerLink="/user" class="text-dark">login</a></p>
+        </div>
+      </div>
+    </div>
+  </section>

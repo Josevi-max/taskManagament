@@ -1,0 +1,57 @@
+.bottom-15 {
+    bottom: 15px;
+}
+
+.p-16 {
+    padding: 16px;
+}
+
+.textAreaDiv {
+    height: 90%;
+    @media (max-width: 1250px) {
+        height: 87%
+    }
+}
+.textAreaHeight {
+    height: 93%;
+    background: transparent;
+    color: #fff;
+}
+
+.pointer-click {
+    cursor: pointer;
+}
+
+
+.nameTask{
+    @media (max-width: 1250px) {
+        width: 170px
+    }
+}
+@media(max-width:768px) {
+    .showCheckbox,.star-desktop {
+        display: none;
+    }
+
+    .hideOverflowText {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .show-mobile{
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .nameTask {
+        margin: auto;
+    }
+}
+@media(min-width:769px) {
+    .show-mobile{
+        display: none;
+    }
+}
+

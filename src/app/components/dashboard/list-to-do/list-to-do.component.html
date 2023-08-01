@@ -1,0 +1,67 @@
+<div class="offcanvas offcanvas-end bg-dark border-light" tabindex="-1" id="offcanvasRight-{{toDo.id}}"
+    aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header pb-0">
+        <h5 id="offcanvasRightLabel">DATOS TAREA</h5>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="fas fa-times text-white fs-4"></i>
+        </button>
+    </div>
+    <div class="offcanvas-body d-flex">
+        <div class="card bg-dark text-white border-light w-100">
+            <div class="card-body text-center">
+                <div class="card-title d-flex justify-content-between align-items-center">
+                    <div class="btn-group showCheckbox" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="button" (click)="taskCompleted(toDo)" class="btn-check" id="btncheck-{{toDo.name}}"
+                            autocomplete="off">
+                        <label class="btn" for="btncheck-{{toDo.name}}"><i [ngClass]="{'fa-minus-circle': toDo.state, 'fa-check-circle': !toDo.state}"
+                                class="fas text-white"></i></label>
+                    </div>
+                    <input type="text" class="btn btn-dark fs-5 nameTask" value="{{toDo.name}}" id="name-{{toDo.id}}">
+                    <i class=" fa-star star-desktop pointer-click" [ngClass]="{'far': !toDo.important, 'fas': toDo.important}"
+                        (click)="importantChangeState(toDo.id, !toDo.important)"></i>
+                </div>
+                <div class="textAreaDiv">
+                    <div class="show-mobile">
+                        <div class="btn-group " role="group" aria-label="Basic checkbox toggle button group">
+                            <input type="button" (click)="taskCompleted(toDo)" class="btn-check" id="btncheck-{{toDo.name}}"
+                                autocomplete="off">
+                            <label class="btn" for="btncheck-{{toDo.name}}"><i [ngClass]="{'fa-minus-circle': toDo.state, 'fa-check-circle': !toDo.state}"
+                                    class="fas text-white"></i></label>
+                        </div>
+                        <i class=" fa-star pointer-click" [ngClass]="{'far': !toDo.important, 'fas': toDo.important}"
+                            (click)="importantChangeState(toDo.id, !toDo.important)"></i>
+                    </div>
+                    
+                    <div class="form-floating textAreaDiv text-center">
+                        <textarea class="border-0 pb-0 rounded-0 form-control textAreaHeight"
+                            placeholder="Leave a comment here" id="textArea-{{toDo.id}}"
+                            name="details">{{ toDo.details }}</textarea>
+                        <label for="textArea-{{toDo.id}}">Notas</label>
+                    </div>
+                    <button type="button" (click)="addDetailsToDo(toDo.id)" class="btn btn-light">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas-footer p-16">
+        <button class="card bg-dark text-white border-light w-100">
+            <div class="card-body d-flex justify-content-between align-items-center w-100">
+                <div data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                    <p class="mb-0 hideOverflowText" *ngIf="toDo.assignedTo == ''"><i class="fas fa-user-plus"></i> Asignar a</p>
+                    <p class="mb-0 hideOverflowText" *ngIf="toDo.assignedTo != ''"><i class="fas fa-user-plus"></i> Asignado a {{toDo.assignedTo}}</p>
+                </div>
+                <i class="fas fa-trash-alt text-danger pointer-click" (click)="releaseAssignedTask(toDo.id)"></i>
+            </div>
+        </button>
+    </div>
+    <div class="offcanvas-footer p-16">
+        <div class="card bg-dark text-white border-light">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <p class="mb-0">Creado el: {{toDo.dateCreation}}</p>
+                <i class="fas fa-trash-alt text-danger pointer-click" (click)="deleteToDo(toDo.id)"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-assign-list-to-do idList={{this.idListTask$}} idToDoList={{toDo.id}} ></app-assign-list-to-do>
